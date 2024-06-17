@@ -1,0 +1,605 @@
+{
+	"info": {
+		"_postman_id": "56b8e96a-67a4-4d0e-bd28-12a11c20a40d",
+		"name": "ClinicaOdontologica",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31472595"
+	},
+	"item": [
+		{
+			"name": "Paciente",
+			"item": [
+				{
+					"name": "GuardarPaciente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"apellido\": \"Castro\",\n    \"nombre\": \"Yolanda\",\n    \"dni\": \"12345\",\n    \"fechaIngreso\": \"2024-06-15\",\n    \"domicilio\": {\n        \"calle\": \"Flores\",\n        \"numero\": 123,\n        \"localidad\": \"Suba\",\n        \"provincia\": \"Bogotá\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/paciente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarTodosLosPacientes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/paciente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarPacientePorId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/paciente/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarPaciente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 3,\n    \"apellido\": \"Soriano\",\n    \"nombre\": \"Armando Alexander\",\n    \"dni\": \"123456\",\n    \"fechaIngreso\": \"2024-05-15\",\n    \"domicilio\": {\n        \"id\": 3,\n        \"calle\": \"Siempre viva\",\n        \"numero\": 444,\n        \"localidad\": \"Springfield\",\n        \"provincia\": \"alguna provincia\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/paciente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarPaciente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/paciente/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarPacienteDni",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "BuscarPacienteDni",
+							"host": [
+								"BuscarPacienteDni"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarPacienteProvincia",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Turno",
+			"item": [
+				{
+					"name": "GuardarTurno",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"paciente\": {\n        \"id\": 1\n    },\n    \"odontologo\":{\n        \"id\": 1\n    },\n    \"fecha\": \"2024-05-30\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/turno",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turno"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarTodosTurnos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/turno",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turno"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarTurno",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"paciente\": {\n        \"id\": 1\n    },\n    \"odontologo\":{\n        \"id\": 1\n    },\n    \"id\": 1,\n    \"fecha\": \"2024-05-31\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/turno",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turno"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarTurnoPorId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/turno/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turno",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarTurno",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/turno/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turno",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Odontologo",
+			"item": [
+				{
+					"name": "GuardarOdontologo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"matricula\": 12323432,\n    \"nombre\": \"Pepito\",\n    \"apellido\": \"Perez\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/odontologo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"odontologo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarTodosLosOdontologos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/odontologo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"odontologo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarOdontologoPorId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/odontologo/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"odontologo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarOdontologo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"matricula\": 5465657,\n    \"nombre\": \"Santiago\",\n    \"apellido\": \"Castillo Castillo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/odontologo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"odontologo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarOdontologo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/odontologo/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"odontologo",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarOdontologoApellido",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/odontologo/apellido/Castro",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"odontologo",
+								"apellido",
+								"Castro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarOdontologoNombre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dtos",
+			"item": [
+				{
+					"name": "PostTurnoDto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"matricula\": 12323432,\n    \"nombre\": \"Pepito\",\n    \"apellido\": \"Perez\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/odontologo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"odontologo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarTurnosDto",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/odontologo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"odontologo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarTurnoDtoId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/odontologo/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"odontologo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutTurnoDto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"matricula\": 5465657,\n    \"nombre\": \"Santiago\",\n    \"apellido\": \"Castillo Castillo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/odontologo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"odontologo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteTurnoDto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/odontologo/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"odontologo",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarTurnosEntreFechas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarTurnosPosterioresAFechaActual",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
