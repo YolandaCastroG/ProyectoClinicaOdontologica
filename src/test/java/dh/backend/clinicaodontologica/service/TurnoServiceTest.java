@@ -6,6 +6,7 @@ import dh.backend.clinicaodontologica.entity.Domicilio;
 import dh.backend.clinicaodontologica.entity.Odontologo;
 import dh.backend.clinicaodontologica.entity.Paciente;
 import dh.backend.clinicaodontologica.exception.BadRequestException;
+import dh.backend.clinicaodontologica.exception.ResourceNotFoundException;
 import dh.backend.clinicaodontologica.service.impl.OdontologoService;
 import dh.backend.clinicaodontologica.service.impl.PacienteService;
 import dh.backend.clinicaodontologica.service.impl.TurnoService;
@@ -45,15 +46,15 @@ class TurnoServiceTest {
 
         // Crear y guardar un paciente
         paciente = new Paciente();
-        paciente.setApellido("Castro");
-        paciente.setNombre("Yolanda");
+        paciente.setApellido("Simpson");
+        paciente.setNombre("Homero");
         paciente.setDni("12345");
-        paciente.setFechaIngreso(LocalDate.of(2024, 6, 16));
+        paciente.setFechaIngreso(LocalDate.of(2024, 6, 18));
         Domicilio domicilio = new Domicilio();
-        domicilio.setCalle("Flores");
-        domicilio.setNumero(1237);
-        domicilio.setLocalidad("Suba");
-        domicilio.setProvincia("Bogotá");
+        domicilio.setCalle("Calle Falsa");
+        domicilio.setNumero(865);
+        domicilio.setLocalidad("Springfield");
+        domicilio.setProvincia("Estados Unidos");
         paciente.setDomicilio(domicilio);
         pacienteService.registrarPaciente(paciente);
     }
@@ -75,7 +76,7 @@ class TurnoServiceTest {
 
     @Test
     @DisplayName("Testear busqueda de turno por id")
-    void testTurnoPorId() throws BadRequestException {
+    void testTurnoPorId() throws BadRequestException, ResourceNotFoundException {
         TurnoRequestDto turnoRequestDto = new TurnoRequestDto();
         turnoRequestDto.setPaciente_id(paciente.getId());
         turnoRequestDto.setOdontologo_id(odontologo.getId());
@@ -92,7 +93,7 @@ class TurnoServiceTest {
 
     @Test
     @DisplayName("Testear busqueda de todos los turnos")
-    void testBusquedaTodos() {
+    void testBusquedaTodos() throws ResourceNotFoundException {
         List<TurnoResponseDto> turnos = turnoService.buscarTodos();
 
         assertNotNull(turnos);

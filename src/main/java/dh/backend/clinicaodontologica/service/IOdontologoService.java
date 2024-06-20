@@ -9,12 +9,12 @@ import java.util.Optional;
 
 public interface IOdontologoService {
     Odontologo registarOdontologo(Odontologo odontologo) throws BadRequestException;
-    Optional<Odontologo> buscarUnOdontologo(Integer id);
-    List<Odontologo> buscarTodosOdontologos();
-    void modificarOdontologo(Odontologo odontologo);
+    Optional<Odontologo> buscarUnOdontologo(Integer id) throws ResourceNotFoundException;
+    List<Odontologo> buscarTodosOdontologos() throws ResourceNotFoundException;
+    void modificarOdontologo(Odontologo odontologo) throws ResourceNotFoundException;
     void eliminarOdontologo(Integer id) throws ResourceNotFoundException;
 
     //Metodos con HQL
-    List<Odontologo> buscarPorApellido(String apellido);
-    List<Odontologo> buscarPorNombre(String nombre);
+    List<Odontologo> buscarPorApellido(String apellido) throws ResourceNotFoundException;
+    List<Odontologo> buscarPorNombre(String nombre) throws ResourceNotFoundException;
 }

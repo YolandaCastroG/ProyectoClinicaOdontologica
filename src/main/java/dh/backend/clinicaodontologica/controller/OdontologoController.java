@@ -28,50 +28,36 @@ public class OdontologoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Odontologo>> buscarTodos(){
+    public ResponseEntity<List<Odontologo>> buscarTodos() throws ResourceNotFoundException {
         return ResponseEntity.ok(odontologoService.buscarTodosOdontologos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Odontologo> buscarOdontologoPorId(@PathVariable Integer id){
+    public ResponseEntity<Odontologo> buscarOdontologoPorId(@PathVariable Integer id) throws ResourceNotFoundException {
         Optional<Odontologo> odontologo = odontologoService.buscarUnOdontologo(id);
-        if(odontologo.isPresent()){
-            Odontologo odontologoARetornar = odontologo.get();
-            return ResponseEntity.ok(odontologoARetornar);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        return ResponseEntity.ok(odontologo.get());
     }
 
     @PutMapping
-    public ResponseEntity<String> modificarOdontologo(@RequestBody Odontologo odontologo){
-        Optional<Odontologo> odontologoOptional = odontologoService.buscarUnOdontologo(odontologo.getId());
-        if(odontologoOptional.isPresent()){
-            odontologoService.modificarOdontologo(odontologo);
-            return ResponseEntity.ok("{\"message\": \"Odontologo modificado\"}");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    public ResponseEntity<String> modificarOdontologo(@RequestBody Odontologo odontologo) throws ResourceNotFoundException {
+        odontologoService.modificarOdontologo(odontologo);
+        return ResponseEntity.ok("{\"message\": \"Odontologo modificado\"}");
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> borrarOdontologo(@PathVariable Integer id) throws ResourceNotFoundException {
-            odontologoService.eliminarOdontologo(id);
-            return ResponseEntity.ok("{\"message\": \"Odontologo eliminado\"}");
+        odontologoService.eliminarOdontologo(id);
+        return ResponseEntity.ok("{\"message\": \"Odontologo eliminado\"}");
     }
 
     @GetMapping("/apellido/{apellido}")
-    public ResponseEntity<List<Odontologo>> buscarPorApellido(@PathVariable String apellido){
+    public ResponseEntity<List<Odontologo>> buscarPorApellido(@PathVariable String apellido) throws ResourceNotFoundException {
         List<Odontologo> ListaOdontologos = odontologoService.buscarPorApellido(apellido);
-        if (ListaOdontologos.size() > 0){
-            return ResponseEntity.ok(ListaOdontologos);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        return ResponseEntity.ok(ListaOdontologos);
     }
 
     @GetMapping("/nombre/{nombre}")
-    public ResponseEntity<List<Odontologo>> buscarPorNombre(@PathVariable String nombre){
+    public ResponseEntity<List<Odontologo>> buscarPorNombre(@PathVariable String nombre) throws ResourceNotFoundException {
         return ResponseEntity.ok(odontologoService.buscarPorNombre(nombre));
     }
 }

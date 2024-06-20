@@ -30,18 +30,14 @@ public class TurnoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TurnoResponseDto>> buscarTodosTurnos() {
+    public ResponseEntity<List<TurnoResponseDto>> buscarTodosTurnos() throws ResourceNotFoundException {
         return ResponseEntity.ok(turnoService.buscarTodos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TurnoResponseDto> buscarTurnoPorId(@PathVariable Integer id){
+    public ResponseEntity<TurnoResponseDto> buscarTurnoPorId(@PathVariable Integer id) throws ResourceNotFoundException {
         TurnoResponseDto turno = turnoService.buscarPorId(id);
-        if (turno != null) {
-            return ResponseEntity.ok(turno);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        return ResponseEntity.ok(turno);
     }
 
     @PutMapping
@@ -59,7 +55,7 @@ public class TurnoController {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @GetMapping("/fechas")
-    public ResponseEntity<List<TurnoResponseDto>> buscarEntreFechas(@RequestParam String inicio, @RequestParam String fin){
+    public ResponseEntity<List<TurnoResponseDto>> buscarEntreFechas(@RequestParam String inicio, @RequestParam String fin) throws ResourceNotFoundException {
         LocalDate fechaInicio = LocalDate.parse(inicio, formatter);
         LocalDate fechaFinal = LocalDate.parse(fin, formatter);
 
@@ -67,7 +63,7 @@ public class TurnoController {
     }
 
     @GetMapping("/posteriores")
-    public ResponseEntity<List<TurnoResponseDto>> listarTurnosPosterioresAFechaActual() {
+    public ResponseEntity<List<TurnoResponseDto>> listarTurnosPosterioresAFechaActual() throws ResourceNotFoundException {
         return ResponseEntity.ok(turnoService.listarTurnosPosterioresAFechaActual());
     }
 

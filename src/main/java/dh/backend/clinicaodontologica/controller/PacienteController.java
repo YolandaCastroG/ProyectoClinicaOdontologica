@@ -30,22 +30,18 @@ public class PacienteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Paciente>> buscarTodos(){
+    public ResponseEntity<List<Paciente>> buscarTodos() throws ResourceNotFoundException {
         return ResponseEntity.ok(pacienteService.buscarTodos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Paciente> buscarPacientePorId(@PathVariable Integer id){
+    public ResponseEntity<Paciente> buscarPacientePorId(@PathVariable Integer id) throws ResourceNotFoundException {
         Optional<Paciente> paciente = pacienteService.buscarPorId(id);
-        if(paciente.isPresent()){
-            return ResponseEntity.ok(paciente.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        return ResponseEntity.ok(paciente.get());
     }
 
     @PutMapping
-    public ResponseEntity<String> actualizarPaciente(@RequestBody Paciente paciente){
+    public ResponseEntity<String> actualizarPaciente(@RequestBody Paciente paciente) throws ResourceNotFoundException {
         pacienteService.actualizarPaciente(paciente);
         return ResponseEntity.ok("{\"message\": \"Paciente modificado\"}");
     }
@@ -57,22 +53,14 @@ public class PacienteController {
     }
 
      @GetMapping("/dni/{dni}")
-    public ResponseEntity<List<Paciente>> buscarPacientePorDni(@PathVariable String dni) {
+    public ResponseEntity<List<Paciente>> buscarPacientePorDni(@PathVariable String dni) throws ResourceNotFoundException {
         List<Paciente> listaPacientes = pacienteService.buscarPorDni(dni);
-        if(listaPacientes.size() > 0){
-            return ResponseEntity.ok(listaPacientes);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        return ResponseEntity.ok(listaPacientes);
     }
 
     @GetMapping("/provincia/{provincia}")
-    public ResponseEntity<List<Paciente>> buscarPacientePorProvincia(@PathVariable String provincia) {
+    public ResponseEntity<List<Paciente>> buscarPacientePorProvincia(@PathVariable String provincia) throws ResourceNotFoundException {
         List<Paciente> listadoPacientes = pacienteService.buscarPorProvincia(provincia);
-        if(listadoPacientes.size() > 0){
-            return ResponseEntity.ok(listadoPacientes);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        return ResponseEntity.ok(listadoPacientes);
     }
 }

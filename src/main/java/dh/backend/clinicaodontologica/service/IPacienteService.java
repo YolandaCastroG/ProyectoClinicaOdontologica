@@ -10,12 +10,12 @@ import java.util.Optional;
 
 public interface IPacienteService {
     Paciente registrarPaciente(Paciente paciente) throws BadRequestException;
-    Optional<Paciente> buscarPorId(Integer id);
-    List<Paciente> buscarTodos();
-    void actualizarPaciente(Paciente paciente);
+    Optional<Paciente> buscarPorId(Integer id) throws ResourceNotFoundException;
+    List<Paciente> buscarTodos() throws ResourceNotFoundException;
+    void actualizarPaciente(Paciente paciente) throws ResourceNotFoundException;
     void eliminarPaciente(Integer id) throws ResourceNotFoundException;
 
     //Metodos con HQL
-    List<Paciente> buscarPorDni(String dni);
-    List<Paciente> buscarPorProvincia(@Param("provincia") String provincia);
+    List<Paciente> buscarPorDni(String dni) throws ResourceNotFoundException;
+    List<Paciente> buscarPorProvincia(@Param("provincia") String provincia) throws ResourceNotFoundException;
 }

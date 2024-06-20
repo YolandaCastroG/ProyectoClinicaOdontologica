@@ -1,5 +1,7 @@
-const tableBody = document.querySelector("#odontologosTable tbody");
-// listando los odontologos
+document.addEventListener("DOMContentLoaded", function() {
+  const tableBody = document.querySelector("#odontologosTable tbody");
+
+
 function fetchOdontologos() {
   fetch(`/odontologo`)
     .then(response => response.json())
@@ -9,26 +11,54 @@ function fetchOdontologos() {
       // Limpiar el contenido actual de la tabla
       tableBody.innerHTML = "";
 
-      // Insertar los datos en la tabla
-      data.forEach((odontologo, index) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${index + 1}</td>
-          <td>${odontologo.nombre}</td>
-          <td>${odontologo.apellido}</td>
-          <td>${odontologo.matricula}</td>
-          <td>
-            <button class="btn btn-primary btn-sm" onclick="editOdontologo(${odontologo.id}, '${odontologo.nombre}', '${odontologo.apellido}', '${odontologo.matricula}')">Modificar</button>
-            <button class="btn btn-danger btn-sm" onclick="deleteOdontologo(${odontologo.id})">Eliminar</button>
-          </td>
-        `;
-        tableBody.appendChild(row);
-      });
+      // Verificar si data es un array
+      if (Array.isArray(data)) {
+        // Insertar los datos en la tabla
+        data.forEach((odontologo, index) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${odontologo.nombre}</td>
+            <td>${odontologo.apellido}</td>
+            <td>${odontologo.matricula}</td>
+            <td>
+              <button class="btn btn-primary btn-sm edit-btn" data-id="${odontologo.id}" data-nombre="${odontologo.nombre}" data-apellido="${odontologo.apellido}" data-matricula="${odontologo.matricula}">Modificar</button>
+              <button class="btn btn-danger btn-sm delete-btn" data-id="${odontologo.id}">Eliminar</button>
+            </td>
+          `;
+          tableBody.appendChild(row);
+        });
+
+      assignEventListeners();
+      } else {
+        console.log("No se encontraron odontólogos.");
+        tableBody.innerHTML = `<tr><td colspan="5">No hay odontólogos registrados.</td></tr>`;
+      }
     })
     .catch(error => {
       console.error("Error fetching data:", error);
     });
 }
+
+
+function assignEventListeners() {
+    document.querySelectorAll(".edit-btn").forEach(button => {
+      button.addEventListener("click", function() {
+        const id = this.getAttribute("data-id");
+        const nombre = this.getAttribute("data-nombre");
+        const apellido = this.getAttribute("data-apellido");
+        const matricula = this.getAttribute("data-matricula");
+        editOdontologo(id, apellido, nombre, matricula);
+      });
+    });
+
+    document.querySelectorAll(".delete-btn").forEach(button => {
+      button.addEventListener("click", function() {
+        const id = this.getAttribute("data-id");
+        deleteOdontologo(id);
+      });
+    });
+  }
 
 function editOdontologo(id, nombre, apellido, matricula) {
   document.getElementById("editId").value = id;
@@ -84,3 +114,4 @@ function deleteOdontologo(id) {
 }
 
 fetchOdontologos();
+});

@@ -22,7 +22,7 @@ public class PacienteService implements IPacienteService {
     }
 
     public Paciente registrarPaciente(Paciente paciente) throws BadRequestException {
-        LOGGER.info("Intentando registrar paciente: {}", paciente);
+        LOGGER.info("Registrando paciente: {}", paciente);
         if (paciente.getNombre() == null) {
             throw new BadRequestException("{\"message\": \"El nombre del paciente es obligatorio\"}");
         }
@@ -34,27 +34,45 @@ public class PacienteService implements IPacienteService {
         return pacientePersistido;
     }
 
-    public Optional<Paciente> buscarPorId(Integer id) {
-        LOGGER.info("Buscando paciente con ID: {}", id);
-        return pacienteRepository.findById(id);
+    public List<Paciente> buscarTodos() throws ResourceNotFoundException {
+        LOGGER.info("Buscando todos los pacientes");
+        List<Paciente> pacientes = pacienteRepository.findAll();
+        if (pacientes.isEmpty()) {
+            LOGGER.info("No se encontraron pacientes");
+            throw new ResourceNotFoundException("{\"message\": \"No se encontraron pacientes\"}");
+        }
+        LOGGER.info("Se encontraron {} pacientes", pacientes.size());
+        return pacientes;
     }
 
-    public List<Paciente> buscarTodos() {
-        LOGGER.info("Buscando todos los pacientes");
-        return pacienteRepository.findAll();
+    public Optional<Paciente> buscarPorId(Integer id) throws ResourceNotFoundException {
+        LOGGER.info("Buscando paciente con ID: {}", id);
+        Optional<Paciente> paciente = pacienteRepository.findById(id);
+        if (paciente.isEmpty()){
+            LOGGER.info("Paciente no encontrado con ID: {}", id);
+            throw new ResourceNotFoundException("{\"message\": \"Paciente con id " + id + " no encontrado\"}");
+        }
+        LOGGER.info("Paciente encontrado con ID: {}", id);
+        return paciente;
     }
 
     @Override
-    public void actualizarPaciente(Paciente paciente) {
+    public void actualizarPaciente(Paciente paciente) throws ResourceNotFoundException {
         LOGGER.info("Actualizando paciente con ID: {}", paciente.getId());
-        pacienteRepository.save(paciente);
-        LOGGER.info("Paciente actualizado con éxito");
+        Optional<Paciente> pacienteOptional = pacienteRepository.findById(paciente.getId());
+        if (pacienteOptional.isPresent()){
+            pacienteRepository.save(paciente);
+            LOGGER.info("Paciente actualizado con éxito");
+        } else {
+            LOGGER.info("Paciente no encontrado para modificar");
+            throw new ResourceNotFoundException("{\"message\": \"Paciente no encontrado para modificar\"}");
+        }
     }
 
 
   @Override
     public void eliminarPaciente(Integer id) throws ResourceNotFoundException {
-      LOGGER.info("Intentando eliminar paciente con ID: {}", id);
+      LOGGER.info("Eliminando paciente con ID: {}", id);
       Optional<Paciente> pacienteOptional = buscarPorId(id);
         if(pacienteOptional.isPresent()){
             pacienteRepository.deleteById(id);
@@ -65,14 +83,26 @@ public class PacienteService implements IPacienteService {
     }
 
    @Override
-    public List<Paciente> buscarPorDni(String dni) {
+    public List<Paciente> buscarPorDni(String dni) throws ResourceNotFoundException {
        LOGGER.info("Buscando pacientes con DNI: {}", dni);
-       return pacienteRepository.findByDni(dni);
+       List<Paciente> pacientes = pacienteRepository.findByDni(dni);
+       if (pacientes.isEmpty()) {
+           LOGGER.info("No se encontraron pacientes con dni: {}", dni);
+           throw new ResourceNotFoundException("{\"message\": \"Paciente con dni " + dni + " no encontrado\"}");
+       }
+       LOGGER.info("Se encontraron {} pacientes", pacientes.size());
+       return pacientes;
    }
 
     @Override
-    public List<Paciente> buscarPorProvincia(String provincia) {
+    public List<Paciente> buscarPorProvincia(String provincia) throws ResourceNotFoundException {
         LOGGER.info("Buscando pacientes en la provincia: {}", provincia);
-        return pacienteRepository.findByProvincia(provincia);
+        List<Paciente> pacientesProvincia = pacienteRepository.findByProvincia(provincia);
+        if (pacientesProvincia.isEmpty()) {
+            LOGGER.info("No se encontraron pacientes de la provincia: {}", provincia);
+            throw new ResourceNotFoundException("{\"message\": \"Pacientes de la provincia " + provincia + " no encontrados\"}");
+        }
+        LOGGER.info("Se encontraron {} pacientes", pacientesProvincia.size());
+        return pacientesProvincia;
     }
 }

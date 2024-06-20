@@ -11,12 +11,12 @@ import java.util.List;
 
 public interface ITurnoService {
     TurnoResponseDto registrar (TurnoRequestDto turnoRequestDto) throws ResourceNotFoundException, BadRequestException;
-    TurnoResponseDto buscarPorId(Integer id);
-    List<TurnoResponseDto> buscarTodos();
+    TurnoResponseDto buscarPorId(Integer id) throws ResourceNotFoundException;
+    List<TurnoResponseDto> buscarTodos() throws ResourceNotFoundException;
     void actualizarTurno(TurnoModificacionDto turnoModificacionDto) throws ResourceNotFoundException;
     void eliminarTurno(Integer id) throws ResourceNotFoundException;
 
     //Metodos con HQL
-    List<TurnoResponseDto> buscarTurnoEntreFechas(LocalDate startDate, LocalDate endDate);
-    List<TurnoResponseDto> listarTurnosPosterioresAFechaActual();
+    List<TurnoResponseDto> buscarTurnoEntreFechas(LocalDate startDate, LocalDate endDate) throws ResourceNotFoundException;
+    List<TurnoResponseDto> listarTurnosPosterioresAFechaActual() throws ResourceNotFoundException;
 }

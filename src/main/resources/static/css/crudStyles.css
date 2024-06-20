@@ -5,8 +5,9 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    /* capa sobre fondo */
     box-shadow: inset 0 0 0 1000px rgba(135, 205, 238, 0.6);
+    min-height: 100vh;
+    color: white;
 }
 
 header {
@@ -28,9 +29,55 @@ nav h1 {
     font-size: 1rem;
     color: var(--lila);
 }
+
 nav img {
     display: block;
     height: 80%;
+}
+
+.container-xl {
+    margin-top: 2rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #343a40;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead {
+    background-color: #343a40;
+    color: white;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.25);
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #dee2e6;
+}
+
+.table th {
+    text-align: center;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+
+.table td .btn {
+    margin-right: 0.5rem;
 }
 
 .container {
@@ -47,21 +94,13 @@ form {
     flex-direction: column;
 }
 
-
-.form-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.form-header {
-    margin-bottom: .8rem;
-}
-
 .form-header {
     background-color: var(--lila);
     padding: .2rem 1rem;
+    margin-bottom: .8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 form label {
@@ -80,7 +119,7 @@ form input:focus {
     border: 2px solid var(--lila);
 }
 
-form button{
+form button {
     background-color: var(--azul);
     color: white;
     padding: .8rem 0;
@@ -88,6 +127,7 @@ form button{
     font-size: 1rem;
     font-weight: 400;
 }
-form button:hover{
+
+form button:hover {
     background-color: var(--azul-hover);
 }

@@ -2,6 +2,7 @@ package dh.backend.clinicaodontologica.service;
 
 import dh.backend.clinicaodontologica.entity.Odontologo;
 import dh.backend.clinicaodontologica.exception.BadRequestException;
+import dh.backend.clinicaodontologica.exception.ResourceNotFoundException;
 import dh.backend.clinicaodontologica.service.impl.OdontologoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -42,7 +43,7 @@ class OdontologoServiceTest {
 
     @Test
     @DisplayName("Testear busqueda odontologo por id")
-    void testOdontologoPorId(){
+    void testOdontologoPorId() throws ResourceNotFoundException {
         Integer id = 1;
         Optional<Odontologo> odontologoEncontrado = odontologoService.buscarUnOdontologo(id);
         Odontologo odontologo1 = odontologoEncontrado.get();
@@ -52,7 +53,7 @@ class OdontologoServiceTest {
 
     @Test
     @DisplayName("Testear busqueda todos los odontologos")
-    void testBusquedaTodos() {
+    void testBusquedaTodos() throws ResourceNotFoundException {
         List<Odontologo> odontologos = odontologoService.buscarTodosOdontologos();
 
         assertNotNull(odontologos);
